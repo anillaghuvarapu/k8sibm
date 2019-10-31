@@ -18,19 +18,24 @@ multiple replicas of a pod, you can ensure your deployment has the available
 resources to handle increasing load on your application.
 
 1. `kubectl` provides a `scale` subcommand to change the size of an
-   existing deployment. Let's increase our capacity from a single running instance of
-   `guestbook` up to 10 instances:
+   existing deployment. 
+   
+    ```sh
+    $ kubectl get pods | grep guestbook
+    NAME                              READY   STATUS    RESTARTS   AGE
+	guestbook-78cff44bf8-c5rrb        1/1     Running   0          32m
+	```
 
-   ``` console
-   $ kubectl scale --replicas=10 deployment guestbook
-   deployment "guestbook" scaled
-   ```
+    Let's increase our capacity from a single running instance of `guestbook` up to 10 instances:
 
-   Kubernetes will now try to make reality match the desired state of
-   10 replicas by starting 9 new pods with the same configuration as
-   the first.
+    ``` console
+    $ kubectl scale --replicas=10 deployment guestbook
+    deployment "guestbook" scaled
+    ```
 
-1. To see your changes being rolled out, you can run:
+    Kubernetes will now try to make reality match the desired state of 10 replicas by starting 9 new pods with the same configuration as the first.
+
+2. To see your changes being rolled out, you can run:
    `kubectl rollout status deployment guestbook`.
 
    The rollout might occur so quickly that the following messages might
@@ -50,25 +55,24 @@ resources to handle increasing load on your application.
    deployment "guestbook" successfully rolled out
    ```
 
-1. Once the rollout has finished, ensure your pods are running by using:
+3. Once the rollout has finished, ensure your pods are running by using:
    `kubectl get pods`.
 
-   You should see output listing 10 replicas of your deployment:
+    You should see output listing 10 replicas of your deployment. Check again the pods for the guestbook application
 
-   ```console
-   $ kubectl get pods
-   NAME                        READY     STATUS    RESTARTS   AGE
-   guestbook-562211614-1tqm7   1/1       Running   0          1d
-   guestbook-562211614-1zqn4   1/1       Running   0          2m
-   guestbook-562211614-5htdz   1/1       Running   0          2m
-   guestbook-562211614-6h04h   1/1       Running   0          2m
-   guestbook-562211614-ds9hb   1/1       Running   0          2m
-   guestbook-562211614-nb5qp   1/1       Running   0          2m
-   guestbook-562211614-vtfp2   1/1       Running   0          2m
-   guestbook-562211614-vz5qw   1/1       Running   0          2m
-   guestbook-562211614-zksw3   1/1       Running   0          2m
-   guestbook-562211614-zsp0j   1/1       Running   0          2m
-   ```
+    ```sh
+    $ kubectl get pods | grep guestbook
+	guestbook-78cff44bf8-68dwq        1/1     Running   0          77s
+	guestbook-78cff44bf8-6fnxk        1/1     Running   0          77s
+	guestbook-78cff44bf8-7zm9h        1/1     Running   0          77s
+	guestbook-78cff44bf8-c5rrb        1/1     Running   0          33m
+	guestbook-78cff44bf8-n82j9        1/1     Running   0          77s
+	guestbook-78cff44bf8-nq8dz        1/1     Running   0          77s
+	guestbook-78cff44bf8-q7sxp        1/1     Running   0          77s
+	guestbook-78cff44bf8-tf8j7        1/1     Running   0          77s
+	guestbook-78cff44bf8-wkd2p        1/1     Running   0          77s
+	guestbook-78cff44bf8-xxzjd        1/1     Running   0          77s
+	```
 
 **Tip:** Another way to improve availability is to
 [add clusters and regions](https://console.bluemix.net/docs/containers/cs_planning.html#cs_planning_cluster_config)
@@ -92,7 +96,9 @@ To update and roll back:
    resources with the `set` subcommand. We can use it to change the
    image being used.
 
-    ```$ kubectl set image deployment/guestbook guestbook=ibmcom/guestbook:v2```
+    ```sh
+	$ kubectl set image deployment/guestbook guestbook=ibmcom/guestbook:v2
+	```
 
    Note that a pod could have multiple containers, each with its own name.
    Each image can be changed individually or all at once by referring to the name.
@@ -148,10 +154,9 @@ To update and roll back:
 
    `$ kubectl describe service guestbook`
    and
-   `$ ibmcloud ks workers $USERNAME-cluster`
+   `$ ibmcloud ks workers $CLUSTER_NAME`
 
-   To verify that you're running "v2" of guestbook, look at the title of the page,
-   it should now be `Guestbook - v2`. If you are using a browser, make sure you force refresh (invalidating your cache).
+   To verify that you're running "v2" of guestbook, look at the title of the page, it should now be `Guestbook - v2`. If you are using a browser, make sure you force refresh (invalidating your cache).
 
 1. If you want to undo your latest rollout, use:
 
@@ -164,11 +169,9 @@ To update and roll back:
    the status.
 
 1. When doing a rollout, you see references to *old* replicas and *new* replicas.
-   The *old* replicas are the original 10 pods deployed when we scaled the application.
-   The *new* replicas come from the newly created pods with the different image.
-   All of these pods are owned by the Deployment.
-   The deployment manages these two sets of pods with a resource called a ReplicaSet.
-   We can see the guestbook ReplicaSets with:
+
+   The *old* replicas are the original 10 pods deployed when we scaled the application. The *new* replicas come from the newly created pods with the different image. All of these pods are owned by the Deployment.
+   The deployment manages these two sets of pods with a resource called a ReplicaSet. You can see the guestbook ReplicaSets with:
 
    ```console
    $ kubectl get replicasets -l run=guestbook
