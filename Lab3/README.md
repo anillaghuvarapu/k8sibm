@@ -48,7 +48,11 @@ your desired state with the actual state of the system.
 For Object that we create we need to provide the `apiVersion` you are using
 to create the object, `kind` of the object we are creating and the `metadata` about the object such as a `name`, set of `labels` and optionally `namespace` that this object should belong.
 
-Consider the following deployment configuration for guestbook application
+Consider the following deployment configuration for guestbook application.
+
+```console
+$ cat guestbook-deployment.yaml
+```
 
 **guestbook-deployment.yaml**
 
