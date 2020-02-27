@@ -408,10 +408,10 @@ spec:
 That's the end of the lab. Now let's clean-up our environment:
 
 ```console
-$ kubectl delete -f guestbook-deployment.yaml
-$ kubectl delete -f guestbook-service.yaml
-$ kubectl delete -f redis-slave-service.yaml
-$ kubectl delete -f redis-slave-deployment.yaml 
-$ kubectl delete -f redis-master-service.yaml 
-$ kubectl delete -f redis-master-deployment.yaml
+kubectl delete -f guestbook-deployment.yaml
+kubectl delete -f guestbook-service.yaml
+kubectl delete -f redis-slave-service.yaml
+kubectl delete -f redis-slave-deployment.yaml 
+kubectl delete -f redis-master-service.yaml 
+kubectl delete -f redis-master-deployment.yaml
 ```
