@@ -6,9 +6,24 @@ command line helper functions we'll be deploying the application using
 configuration files. The configuration file mechanism allows you to have more fine-grained control over all of resources being created within the
 Kubernetes cluster.
 
-Before we work with the application we need to clone a github repo:
+Before we work with the application make sure you have the source code for https://github.com/IBM/guestbook.git in your web-terminal
 
+```console
+$ cd /userdata
+$ ls -al
+total 28
+drwxr-xr-x 1 root root 4096 Nov  4 15:15 .
+drwxr-xr-x 1 root root 4096 Nov  5 23:34 ..
+drwxr-xr-x 5 root root 4096 Nov  4 15:15 guestbook
+drwxr-xr-x 7 root root 4096 Nov  4 15:15 helm101
+drwxr-xr-x 6 root root 4096 Oct  1 16:45 istio-1.3.2
+drwxr-xr-x 6 root root 4096 Jun 19 20:44 kafka_2.12-2.3.0
+drwxr-xr-x 6 root root 4096 Oct 16 16:43 spring-2.2.0.RELEASE
 ```
+
+If you do not see the guestbook source code, clone it first.
+
+```console
 $ git clone https://github.com/IBM/guestbook.git
 ```
 
@@ -33,7 +48,11 @@ your desired state with the actual state of the system.
 For Object that we create we need to provide the `apiVersion` you are using
 to create the object, `kind` of the object we are creating and the `metadata` about the object such as a `name`, set of `labels` and optionally `namespace` that this object should belong.
 
-Consider the following deployment configuration for guestbook application
+Consider the following deployment configuration for guestbook application.
+
+```console
+$ cat guestbook-deployment.yaml
+```
 
 **guestbook-deployment.yaml**
 
