@@ -44,7 +44,7 @@ that has already been built and uploaded to DockerHub under the name
 	guestbook-59bd679fdc-bxdg7    1/1       Running             0          1m
 	```
 
-	Because we already pre-installed an Istio enabled Bookinfo example application, the complete list will show,
+	If you already pre-installed an Istio enabled Bookinfo example application, the complete list will show,
 
     ```sh
     kubectl get pods
