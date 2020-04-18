@@ -9,6 +9,7 @@ from the previous lab. If you deleted it, recreate it using:
 
 ```console
 $ kubectl run guestbook --image=ibmcom/guestbook:v1
+$ kubectl expose deployment guestbook --type="NodePort" --port=3000
 ```
 
 ## 1. Scale apps with replicas
@@ -75,7 +76,7 @@ resources to handle increasing load on your application.
 	```
 
 **Tip:** Another way to improve availability is to
-[add clusters and regions](https://console.bluemix.net/docs/containers/cs_planning.html#cs_planning_cluster_config)
+[add clusters and regions](https://cloud.ibm.com/docs/containers?topic=containers-ha_clusters#ha_clusters)
 to your deployment, as shown in the following diagram:
 
 ![HA with more clusters and regions](../images/cluster_ha_roadmap.png)
