@@ -15,14 +15,26 @@ that has already been built and uploaded to DockerHub under the name
 	$ kubectl config current-context
 	```
 
+1. Set the `CLUSTER_NAME` variable to your assigned cluster,
+
+	```
+	$ CLUSTER_NAME=ikscdaat04
+	```
+
 2. If you are not connected, reconnect by following the instructions at https://github.com/remkohdev/AppModernization/tree/master/Lab02
 
 
 3. Start by running `guestbook`:
 
+	```sh
+	$ kubectl create deployment guestbook --image=ibmcom/guestbook:v1
+	deployment.apps/guestbook created
+    ```
+
+	The command `kubectl run` to create deployments is deprecated, it will only create pods,
     ```sh
     $ kubectl run guestbook --image=ibmcom/guestbook:v1
-    kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
+	kubectl run --generator=deployment/apps.v1 is DEPRECATED and will be removed in a future version. Use kubectl run --generator=run-pod/v1 or kubectl create instead.
     deployment.apps/guestbook created
     ```
 
@@ -69,7 +81,7 @@ that has already been built and uploaded to DockerHub under the name
    service "guestbook" exposed
    ```
 
-2. To find the port used on that worker node, examine your new service:
+1. To find the port used on that worker node, examine your new service:
 
    ```console
    $ kubectl get service guestbook
@@ -81,11 +93,11 @@ that has already been built and uploaded to DockerHub under the name
    the pod exposed to the cluster on port 31208. This port in the 31000 range is automatically chosen, 
    and could be different for you.
 
-3. `guestbook` is now running on your cluster, and exposed to the internet.    
+1. `guestbook` is now running on your cluster, and exposed to the internet.    
     We need to find out where it is accessible. The worker nodes running in the container service get external IP addresses. Get the workers for your cluster and note one (any one) of the public IPs listed on the `<public-IP>` line.
 
     ```console
-    $ ibmcloud ks workers $CLUSTER_NAME
+    $ ibmcloud ks workers --cluster $CLUSTER_NAME
     OK
     ID   Public IP    Private IP    Flavor    State    Status   Zone    Version   
 	kube-bmt54ghd0i8vpnd5r1a0-usbankikscl-default-0000015e   150.238.6.198   10.93.209.146   b3c.4x16.encrypted   normal   Ready    dal10   1.14.8_1537   
