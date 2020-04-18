@@ -33,6 +33,7 @@ You can either create your own free Lite IKS cluster at https://cloud.ibm.com/ku
 
 1. You should now be read to start with [Lab 1](../Lab1/README.md),
 
+<!-- 
 ## Red Hat OpenShift Kubernetes Service (ROKS)
 
 TBD
@@ -95,3 +96,4 @@ You can bootstrap a cluster as follows:
 	```
 	$ kubectl get pods
 	```
+-->
